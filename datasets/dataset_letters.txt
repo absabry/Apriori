@@ -1,0 +1,7 @@
+A, B, Y
+A, C, Y
+B, A
+A, B, C, X, Y 
+A, B, X, Y
+B, C, Y
+A, Y
