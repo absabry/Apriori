@@ -22,3 +22,4 @@ node_modules
 .sass-cache
 
 __pycache__/
+.ipynb_checkpoints/
