@@ -2,10 +2,12 @@
 Data mining apriori algorithm in python
 
 # usage 
-Launch apriori.py from any ide and specify or commande line using this command : 
-__python apriori.py__ 
+Launch apriori.py from any ide  and specify or commande line using this command : 
+__python apriori.py__.
 
-arguemnts :
+You can also use the notebook apriori.ipynb for a more aesthetic plateform. Vizualisation are made from this result. 
+
+arguments :
  
 --dataset       Path to the dataset file. 
                 Data should be formated as in "dataset.txt" file.

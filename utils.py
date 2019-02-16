@@ -78,6 +78,22 @@ def dataset_from_file(input_file, delimeter):
     return res
 
 def format_output(res):
-    print('{} \t{}'.format('element','value'))
+    print('{:15} {}'.format('element','value'))
     for elem in res: 
-        print('{} \t\t{}'.format(elem[0],elem[1]))
+        print('{:17} {}'.format(elem[0],elem[1]))
+        
+def apriori(T,eps,verbose=False):
+    '''
+    main function
+    '''
+    L,C = {},{}
+    level = 1
+    while True:
+        L[level] = createL(
+                level, T if level == 1 else C[level-1],eps)
+        C[level] = create_C(L[level],level,T)
+        if not C[level]: break # condition d'arret
+        level += 1
+    if verbose: 
+        _result(L,C)
+    return create_result(C,eps)
