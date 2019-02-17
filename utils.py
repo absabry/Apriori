@@ -27,12 +27,12 @@ def createKey(arr):
     '''
     return '-'.join(str(x) for x in arr)
 
-def convert(ls, reverse = False):
+def convert(ls, to_str = False):
     '''
     Convert str list to integer list
-    if reverse : convert integer list to integer list
+    if reverse : convert integer list to str list
     '''
-    if reverse:
+    if to_str:
         return [str(x) for x in ls]
     return [int(x) for x in ls]
 
@@ -56,7 +56,7 @@ def create_c_keys(current_L,level,T):
                 if len(val) == level:  
                     res.add(val)
     # convert from set(frozenset,frozenset,...) to  [[],[],...]
-    return list([list(convert(x,reverse=True)) for x in res]) 
+    return list([list(convert(x,to_str=True)) for x in res]) 
     
 def create_C(current_L,level,T):
     res =  create_c_keys(current_L,level,T)
