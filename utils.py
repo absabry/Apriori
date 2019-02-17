@@ -97,11 +97,11 @@ def format_output(res):
     print('{:15} {:7}  {:10} {:10} {:10}'
           .format('element','value', 'support', 'confiance', 'reversed'))
     for elem in res: 
-        print('  {:13} {:3}  {:10.3f} {:10.3f} {:10.3f}'
-              .format(elem[0],elem[1]['value'],
-                      elem[1]['support'],
-                      elem[1]['confiance'],
-                      elem[1]['confiance-reverse']))
+        print('  {:13} {:3}  {:10.3f} {:10.3f} {:10.3f}'.format(
+                elem[0],elem[1]['value'],
+                elem[1]['support'],
+                elem[1]['confiance'],
+                elem[1]['confiance-reverse']))
 
 def apriori(T, eps, verbose=False):
     '''
