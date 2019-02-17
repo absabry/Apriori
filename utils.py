@@ -56,14 +56,30 @@ def createL(level, _set, epsilon = None):
         return list(set(str(x) for l in _set for x in l))
     return [str(key) for key,value in _set.items() if value >= epsilon]
 
-def create_result(C,eps):
+def confiance(supports,key):
+    values = key.split('-')
+    last_value = values[-1]
+    others = values[:-1]
+    if len(others) > 0:
+        return {"confiance": supports[key] / supports[last_value], 
+                "confiance-reverse": supports[key] / supports['-'.join(others)] }
+    return {"confiance": supports[last_value], "confiance-reverse": supports[last_value]}
+
+def create_result(C,eps,_max):
     res = {}
+    supports = {}
+    
     for c in C.values():
-        for key,value in c.items():
-            if value>=eps : res[key] = value
+        # sort by key length, to get single values, then couples, etc. 
+        input_sorted = sorted(c.items(), key=lambda e: len(e[0])) 
+        for key,value in input_sorted:
+            if value>=eps : 
+                res[key] = { "value": value, "support": value/_max}
+                supports[key] = value/_max
+                res[key].update(confiance(supports,key)) # add confiance value
     
     return sorted(res.items(), 
-                  key=lambda e: (e[1], len(e[0])), # sort by value then key length
+                  key=lambda e: (e[1]["value"], len(e[0])), # sort by value then key length
                   reverse=True)
     
 def dataset_from_file(input_file, delimeter):
@@ -78,11 +94,16 @@ def dataset_from_file(input_file, delimeter):
     return res
 
 def format_output(res):
-    print('{:15} {}'.format('element','value'))
+    print('{:15} {:7}  {:10} {:10} {:10}'
+          .format('element','value', 'support', 'confiance', 'reversed'))
     for elem in res: 
-        print('{:17} {}'.format(elem[0],elem[1]))
-        
-def apriori(T,eps,verbose=False):
+        print('  {:13} {:3}  {:10.3f} {:10.3f} {:10.3f}'
+              .format(elem[0],elem[1]['value'],
+                      elem[1]['support'],
+                      elem[1]['confiance'],
+                      elem[1]['confiance-reverse']))
+
+def apriori(T, eps, verbose=False):
     '''
     main function
     '''
@@ -96,4 +117,5 @@ def apriori(T,eps,verbose=False):
         level += 1
     if verbose: 
         _result(L,C)
-    return create_result(C,eps)
+    return create_result(C,eps,len(T))
+
