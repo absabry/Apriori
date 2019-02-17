@@ -20,13 +20,6 @@ def dataset_from_file(input_file, delimeter):
         res.append([word.strip() for word in line])
     return res
 
-def createKey(arr):
-    '''
-    Convert integer list to string
-    Used to create the key in Cs results
-    '''
-    return '-'.join(str(x) for x in arr)
-
 def convert(ls, to_str = False):
     '''
     Convert str list to integer list
@@ -43,7 +36,7 @@ def count_values(result,T):
     '''
     final_res = {}
     for val in result:
-        final_res[createKey(val)] = sum([set(val) <= set(t) for t in T])
+        final_res['-'.join(convert(val,to_str=True))] = sum([set(val) <= set(t) for t in T])
     return final_res
 
 def create_c_keys(current_L,level,T):
