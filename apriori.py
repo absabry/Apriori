@@ -1,4 +1,4 @@
-from utils import dataset_from_file,apriori,format_output
+from scripts.utils import dataset_from_file,apriori,format_output
 
 import argparse
 parser = argparse.ArgumentParser()
